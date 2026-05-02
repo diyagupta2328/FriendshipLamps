@@ -1,4 +1,4 @@
-# FriendshipLamps
+# Friendship Lamps
 ELEC327 Project
 
 Things to Program: MSPM0, ESP32, LED, Amplifier, Button

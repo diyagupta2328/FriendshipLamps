@@ -16,8 +16,6 @@ ti_msp_dl_config.c
 ti_msp_dl_config.h
 
 # Temp files
-temp.txt
-*.tmp
 *.log
 
 # OS files

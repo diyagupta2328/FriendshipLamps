@@ -26,9 +26,9 @@ Sending the string 'AT\r\n' from MSPM0. In CCS if you watch atResult, uartResult
 Side note:  To test ESP32 booting: open PuTTY at Serial, COM7, 115200 baud rate
 
 Also right now this is the wiring setup I'm using:
-LP PA10 (TX)  ──→  ESP32 IO16  
-LP PA11 (RX)  ←──  ESP32 IO17  
-LP GND        ────  ESP32 GND
-LP 3.3V       _____ ESP32 3V3
+- LP PA10 (TX)  ──→  ESP32 IO16  
+- LP PA11 (RX)  ←──  ESP32 IO17  
+- LP GND        ────  ESP32 GND
+- LP 3.3V       _____ ESP32 3V3
 
 I'm not using the ESP32 GPIO 1 and 3 (which are the RX TX pins on the ESP32) because the factory default is GPIO 16 and 17 for uart. I tried to change that configuration locally through MSPM0 config files but it didn't flash correctly so I'm gonna leave out those local files. I know it doesnt work because on boot (check stream in PuTTY), ESP32 still says its UART pins are 16 (RX) and 17 (TX). So we have to check ESP32 TX to RX pin on MSPM0. That's what I was doing now. 

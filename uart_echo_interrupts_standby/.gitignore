@@ -1,0 +1,25 @@
+# CCS Build Artifacts
+Debug/
+Release/
+*.out
+*.map
+*.obj
+*.d
+*.hex
+
+# CCS Project Settings (machine-specific)
+.settings/
+.cproject.bak
+
+# SysConfig Generated Files
+ti_msp_dl_config.c
+ti_msp_dl_config.h
+
+# Temp files
+temp.txt
+*.tmp
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

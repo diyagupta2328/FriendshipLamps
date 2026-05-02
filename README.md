@@ -10,12 +10,20 @@ Let's separate tasks in different folders for now.
 - Wifi communication between two different ESP32's
 
 
-UART Connection Notes
+## UART Connection
 
-- Test ESP32 booting: open PuTTY at Serial, COM7, 115200 baud rate
+Setup Instructions
+- download the esp32_WROOM_... folder I've pushed
+- embedded in tshi folder is a requirements.txt file for knowing which packages to pip install
+- I used windows command prompt and CCS
+- import the code as a project in CCS
+- Download PuTTY 
+
 
 What I was currently working on:
 Sending the string 'AT\r\n' from MSPM0. In CCS if you watch atResult, uartResult, and rxBuffer in the Watch window, we see MSPM0's own transmitted string is just echoed back. Still no 'OK' from the ESP32. The MSPM0 can transmit fine (we see echoes) but receives nothing back from the ESP32.
+
+Side note:  To test ESP32 booting: open PuTTY at Serial, COM7, 115200 baud rate
 
 Also right now this is the wiring setup I'm using:
 LP PA10 (TX)  ──→  ESP32 IO16  

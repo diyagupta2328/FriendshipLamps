@@ -23,7 +23,7 @@ Folder Download:
 Link: https://docs.espressif.com/projects/esp-at/en/latest/esp32/AT_Binary_Lists/esp_at_binaries.html#firmware-esp32-wroom-32-series
 - ON this link download "v4.1.1.0 ESP32-WROOM-32-AT-V4.1.1.0.zip (Recommended)" as a zip file
 - then extract that zip folder and all contents are embedded like 3 layers in but its fine it doesnt matter
-- Then change a couple things in that extracted folder. 1) replace the customized_partitions folder. I have emailed you what to replace it with, 2) add the mfg_nvs_new.bin file, 3) add the requirements.txt file. This requirements.txt file is all the packages you need to pip install. 
+- Then change a couple things in that extracted folder. 1) replace the customized_partitions folder. I have emailed you what to replace it with, 2) add the requirements.txt file. This requirements.txt file is all the packages you need to pip install. 
 
 
 What I was currently working on:

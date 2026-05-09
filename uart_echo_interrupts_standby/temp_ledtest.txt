@@ -1,0 +1,63 @@
+#include "ti_msp_dl_config.h"
+#include <stdint.h>
+
+#define LED_PORT  GPIOA
+#define LED_PIN   DL_GPIO_PIN_27
+#define NUM_LEDS  30
+
+static inline void delay_ns_10(void) {
+    __asm volatile ("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n");
+}
+static inline void delay_ns_19(void) {
+    __asm volatile ("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n"
+                    "nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n");
+}
+static inline void delay_ns_29(void) {
+    __asm volatile ("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n"
+                    "nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n"
+                    "nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\n");
+}
+
+static inline void send_bit(uint8_t bit) {
+    if (bit) {
+        DL_GPIO_setPins(LED_PORT, LED_PIN);   delay_ns_19();
+        DL_GPIO_clearPins(LED_PORT, LED_PIN); delay_ns_19();
+    } else {
+        DL_GPIO_setPins(LED_PORT, LED_PIN);   delay_ns_10();
+        DL_GPIO_clearPins(LED_PORT, LED_PIN); delay_ns_29();
+    }
+}
+
+static inline void send_byte(uint8_t b) {
+    for (int i = 7; i >= 0; i--) send_bit((b >> i) & 1);
+}
+
+void sk6812_write_all(uint8_t r, uint8_t g, uint8_t b) {
+    __disable_irq();
+    for (int i = 0; i < NUM_LEDS; i++) {
+        send_byte(g); send_byte(r); send_byte(b);
+    }
+    __enable_irq();
+    DL_GPIO_clearPins(LED_PORT, LED_PIN);
+    delay_cycles(3200);
+}
+
+int main(void)
+{
+    SYSCFG_DL_init();
+
+    DL_GPIO_initDigitalOutput(IOMUX_PINCM60);
+    DL_GPIO_enableOutput(GPIOA, DL_GPIO_PIN_27);
+    DL_GPIO_clearPins(GPIOA, DL_GPIO_PIN_27);
+
+    delay_cycles(3200000);
+
+    while (1)
+    {
+        sk6812_write_all(255, 50, 120);   /* warm pink ON */
+        delay_cycles(160000000UL);        /* ~5 seconds */
+
+        sk6812_write_all(0, 0, 0);        /* OFF */
+        delay_cycles(160000000UL);        /* ~5 seconds */
+    }
+}

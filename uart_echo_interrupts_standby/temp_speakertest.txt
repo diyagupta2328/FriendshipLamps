@@ -1,0 +1,49 @@
+/*
+ * MUSIC TEST — MSPM0 side
+ * Sends "PLAY\r\n" to ESP32 every 20 seconds
+ *
+ * Wiring:
+ *   PA10 (TX) → ESP32 GPIO3 (RX)
+ *   PA11 (RX) ← ESP32 GPIO1 (TX)  [not used in this test]
+ *   GND       — shared GND
+ *
+ * J21/J22 must be in BP position
+ */
+
+#include "ti_msp_dl_config.h"
+#include <stdint.h>
+
+void delay_ms(uint32_t ms)
+{
+    delay_cycles(32000UL * ms);
+}
+
+void uart_tx_byte(uint8_t b)
+{
+    while (DL_UART_Main_isBusy(UART_0_INST)) {}
+    DL_UART_Main_transmitData(UART_0_INST, b);
+}
+
+void uart_tx_string(const char *str)
+{
+    while (*str) uart_tx_byte((uint8_t)*str++);
+}
+
+int main(void)
+{
+    SYSCFG_DL_init();
+
+    /* Wait for ESP32 to fully boot and I2S to initialize */
+    delay_ms(3000);
+
+    while (1)
+    {
+        uart_tx_string("PLAY\r\n");
+
+        /* 20 x 1-second delays to avoid overflow */
+        for (int i = 0; i < 20; i++)
+        {
+            delay_cycles(32000000UL);  /* exactly 1 second at 32MHz */
+        }
+    }
+}

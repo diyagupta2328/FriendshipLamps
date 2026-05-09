@@ -1,0 +1,65 @@
+#include "ti_msp_dl_config.h"
+#include <stdint.h>
+#include <stdbool.h>
+
+volatile uint32_t pressCount    = 0;  /* total button presses */
+volatile uint32_t actionCount   = 0;  /* increments when action triggers */
+volatile bool     actionPending = false; /* true briefly after press */
+
+int main(void)
+{
+    SYSCFG_DL_init();
+
+    DL_GPIO_initDigitalInputFeatures(
+        IOMUX_PINCM35,
+        DL_GPIO_INVERSION_DISABLE,
+        DL_GPIO_RESISTOR_PULL_DOWN,
+        DL_GPIO_HYSTERESIS_DISABLE,
+        DL_GPIO_WAKEUP_DISABLE
+    );
+
+    bool prevState   = false;  /* previous stable button state */
+    bool stableState = false;  /* debounced stable state */
+    uint32_t sameCount = 0;    /* how long pin has been stable */
+
+    while (1)
+    {
+        bool currentRaw = (DL_GPIO_readPins(GPIOA, DL_GPIO_PIN_13) != 0);
+
+        /* Debounce — pin must be stable for ~50ms */
+        if (currentRaw == stableState)
+        {
+            sameCount++;
+        }
+        else
+        {
+            sameCount = 0;
+            stableState = currentRaw;
+        }
+
+        /* Only act after pin has been stable for enough cycles */
+        if (sameCount > 1600000)  /* ~50ms at 32MHz */
+        {
+            if (stableState == true && prevState == false)
+            {
+                /* Rising edge — button just pressed */
+                pressCount++;
+                actionPending = true;
+                actionCount++;
+
+                /* ── DO YOUR ACTION HERE ──
+                 * In the real lamp code this is where we send
+                 * "BTN\r\n" to the ESP32
+                 */
+            }
+
+            if (stableState == false && prevState == true)
+            {
+                /* Falling edge — button just released */
+                actionPending = false;  /* reset flag after release */
+            }
+
+            prevState = stableState;
+        }
+    }
+}

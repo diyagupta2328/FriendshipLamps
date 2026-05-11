@@ -73,7 +73,7 @@ A pair of connected lamps that communicate over WiFi — when a button is presse
 |---|---|---|
 | `lamp_main.c` | MSPM0 (both lamps) | Button detection, LED control, UART |
 | `esp1_test.ino` | ESP32 Lamp 1 | WiFi, MQTT, I2S audio |
-| `est2_test.ino` | ESP32 Lamp 2 | WiFi, MQTT, I2S audio (swapped topics) |
+| `espt2_test.ino` | ESP32 Lamp 2 | WiFi, MQTT, I2S audio (swapped topics) |
 
 ### Dependencies
 - **CCS (Code Composer Studio)** with MSPM0 SDK 2.x

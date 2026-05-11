@@ -3,13 +3,13 @@
  * FRIENDSHIP LAMP — ESP32 Firmware for LAMP 2
  * ============================================================
  *
- * IDENTICAL to Lamp 1 except swapped MQTT topics:
+ * Swap topics from Lamp 1:
  *   Publishes to:   friendship-lamp/lamp2
  *   Subscribes to:  friendship-lamp/lamp1
  *
- * Everything else — wiring, I2S, melody, UART — identical.
+ * Similar code to esp1_test.ino 
  *
- * *** FILL IN WIFI CREDENTIALS BELOW ***
+ *  Note: AI was used to help generate some formatted comments for this code. AI was used responsibly and comments were double checked. 
  * ============================================================
  */
 
@@ -19,8 +19,8 @@
 #include <math.h>
 
 /* ── WiFi credentials ─────────────────────────────────────── */
-const char* WIFI_SSID     = "Tyler";      /* <-- CHANGE */
-const char* WIFI_PASSWORD = "Mosasaurus";   /* <-- CHANGE */
+const char* WIFI_SSID     = "Tyler";      /* <-- USER SHOULD CHANGE */
+const char* WIFI_PASSWORD = "Mosasaurus";   /* <-- USER SHOULD CHANGE */
 
 /* ── MQTT ─────────────────────────────────────────────────── */
 const char* MQTT_BROKER     = "broker.hivemq.com";

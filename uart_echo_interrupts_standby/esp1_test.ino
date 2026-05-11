@@ -17,7 +17,7 @@
  *   ESP32 GPIO25     → MAX98357A LRC
  *   ESP32 GPIO27     → MAX98357A DIN
  *   MAX98357A SD     → 3.3V
- *   MAX98357A GAIN   → leave unconnected (9dB)
+ *   MAX98357A GAIN   → unconnected
  *   MAX98357A Vin    → 5V
  *   MAX98357A GND    → GND
  *
@@ -25,7 +25,7 @@
  *   Publishes to:   friendship-lamp/lamp1
  *   Subscribes to:  friendship-lamp/lamp2
  *
- * *** FILL IN WIFI CREDENTIALS BELOW ***
+ *  Note: AI was used to help generate some formatted comments for this code. AI was used responsibly and comments were double checked. 
  * ============================================================
  */
 
@@ -35,8 +35,8 @@
 #include <math.h>
 
 /* ── WiFi credentials ─────────────────────────────────────── */
-const char* WIFI_SSID     = "Diya iPhone (2)";      /* <-- CHANGE */
-const char* WIFI_PASSWORD = "sierra1128";   /* <-- CHANGE */
+const char* WIFI_SSID     = "Diya iPhone (2)";      /* <-- USER SHOULD CHANGE */
+const char* WIFI_PASSWORD = "sierra1128";   /* <-- USER SHOULD CHANGE */
 
 /* ── MQTT ─────────────────────────────────────────────────── */
 const char* MQTT_BROKER     = "broker.hivemq.com";
@@ -63,7 +63,7 @@ volatile bool playMusicFlag  = false;
 volatile bool sendButtonFlag = false;
 
 /* ────────────────────────────────────────────────────────── */
-/* MELODY — warm pleasant tune ~15 seconds                    */
+/* MELODY — warm pleasant sunrise alarm like tune we found. This is a  ~15 second clip  */
 /* ────────────────────────────────────────────────────────── */
 struct Note { int freq; int dur; };
 
@@ -247,6 +247,7 @@ void loop()
 {
     if (!mqttClient.connected())
     {
+        // Serial print statemnts useful for debugging and checking WiFi connection
         Serial.println("[WARN] MQTT disconnected — reconnecting...");
         connectMQTT();
     }

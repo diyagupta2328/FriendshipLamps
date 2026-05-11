@@ -3,7 +3,6 @@
  * FRIENDSHIP LAMP — MSPM0G3507 Final Integrated Code
  * ============================================================
  *
- * IDENTICAL FOR BOTH LAMP 1 AND LAMP 2
  *
  * WORKFLOW:
  *   1. Button pressed on PA13 (active HIGH, debounced)
@@ -23,6 +22,8 @@
  *
  * J21/J22 JUMPERS: must be in BP position
  * ============================================================
+ *
+ * Note: AI was used to help generate some formatted comments for this code. AI was used responsibly and comments were double checked. 
  */
 
 #include "ti_msp_dl_config.h"

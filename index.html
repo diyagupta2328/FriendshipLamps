@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friendship Lamps</title>
+
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --card: #ffffff;
+      --text: #1f2933;
+      --muted: #5f6c7b;
+      --accent: #ff8c42;
+      --accent-dark: #d96a24;
+      --border: #e3e0d8;
+      --code-bg: #17202a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 70px 20px 50px;
+      background: linear-gradient(135deg, #fff4e6, #f8f7f4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--accent-dark);
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: 0;
+      margin-bottom: 18px;
+    }
+
+    h3 {
+      margin-top: 24px;
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .hero p {
+      font-size: 1.18rem;
+      max-width: 640px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .button.primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .button.secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: white;
+    }
+
+    .button.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent-dark);
+    }
+
+    .hero-card {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(31, 41, 51, 0.12);
+      border: 1px solid var(--border);
+    }
+
+    .hero-card img {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .caption {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    section {
+      padding: 55px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(31, 41, 51, 0.06);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .feature p {
+      margin: 0;
+      font-size: 0.98rem;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 15px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+    }
+
+    .step p {
+      margin: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      margin: 18px 0 30px;
+    }
+
+    th, td {
+      padding: 13px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: #fff4e6;
+      color: var(--text);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    code {
+      background: #f0eee8;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 0.95em;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: white;
+      padding: 18px;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+    }
+
+    pre code {
+      background: transparent;
+      color: white;
+      padding: 0;
+    }
+
+    .image-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    .image-row img {
+      width: 100%;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #fff4e6;
+      color: var(--accent-dark);
+      border: 1px solid #ffd9b8;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      margin: 5px 5px 5px 0;
+    }
+
+    footer {
+      padding: 35px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero,
+      .grid-2,
+      .grid-3,
+      .image-row {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding-top: 45px;
+      }
+
+      section {
+        padding: 38px 0;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container hero">
+      <div>
+        <div class="eyebrow">ELEC327 Project</div>
+        <h1>Friendship Lamps</h1>
+        <p>
+          A pair of connected lamps that communicate over WiFi. When a button is pressed on one lamp,
+          the other lamp lights up and plays music from anywhere with an internet connection.
+        </p>
+
+        <div class="buttons">
+          <a class="button primary" href="https://github.com/diyagupta2328/FriendshipLamps" target="_blank" rel="noopener">
+            View GitHub Repo
+          </a>
+          <a class="button secondary" href="#how-it-works">
+            See How It Works
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="lamps_photo.png" alt="Friendship Lamps final build" />
+        <div class="caption">Final lamp build</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview">
+      <div class="container">
+        <div class="card">
+          <h2>Project Overview</h2>
+          <p>
+            Friendship Lamps uses an MSPM0G3507 microcontroller and an ESP32-WROOM-32E WiFi module
+            to connect two physical lamps over the internet. The MSPM0 handles local hardware control,
+            including the button, LED strip, and UART communication. The ESP32 handles WiFi, MQTT messaging,
+            and I2S audio playback through a MAX98357A amplifier.
+          </p>
+
+          <div>
+            <span class="tag">MSPM0G3507</span>
+            <span class="tag">ESP32-WROOM-32E</span>
+            <span class="tag">MQTT</span>
+            <span class="tag">UART</span>
+            <span class="tag">I2S Audio</span>
+            <span class="tag">NeoPixel LEDs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container">
+        <h2>How It Works</h2>
+
+        <div class="steps">
+          <div class="step">
+            <p>User presses the button on Lamp 1.</p>
+          </div>
+          <div class="step">
+            <p>The MSPM0 detects the button press and sends a command to ESP32 #1 over UART.</p>
+          </div>
+          <div class="step">
+            <p>ESP32 #1 publishes a message to an MQTT broker over WiFi.</p>
+          </div>
+          <div class="step">
+            <p>ESP32 #2 receives the MQTT message from anywhere with WiFi access.</p>
+          </div>
+          <div class="step">
+            <p>ESP32 #2 sends a command to MSPM0 #2 and plays music through the I2S amplifier.</p>
+          </div>
+          <div class="step">
+            <p>MSPM0 #2 lights up the LED strip for 15 seconds.</p>
+          </div>
+          <div class="step">
+            <p>The same process works in reverse when Lamp 2's button is pressed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="photos">
+      <div class="container">
+        <h2>Build Photos</h2>
+        <div class="image-row">
+          <div>
+            <img src="lamps_photo.png" alt="Friendship Lamps assembled lamps" />
+            <div class="caption">Assembled lamps</div>
+          </div>
+          <div>
+            <img src="pcb_photo.png" alt="Friendship Lamps PCB photo" />
+            <div class="caption">PCB and electronics</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="hardware">
+      <div class="container">
+        <h2>Hardware Components</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MSPM0G3507 LaunchPad</td>
+              <td>Main microcontroller for button input, LED control, and UART communication.</td>
+            </tr>
+            <tr>
+              <td>ESP32-WROOM-32E</td>
+              <td>WiFi module for MQTT communication and audio playback.</td>
+            </tr>
+            <tr>
+              <td>MAX98357A I2S Amplifier</td>
+              <td>Drives the speaker using digital I2S audio from the ESP32.</td>
+            </tr>
+            <tr>
+              <td>SK6812 NeoPixel LED Strip</td>
+              <td>30 LED visual indicator that lights up for 15 seconds.</td>
+            </tr>
+            <tr>
+              <td>30mm Illuminated Arcade Button</td>
+              <td>User input button with a built-in LED.</td>
+            </tr>
+            <tr>
+              <td>Speaker</td>
+              <td>Audio output for the received lamp signal.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="wiring">
+      <div class="container">
+        <h2>Wiring</h2>
+
+        <h3>MSPM0 LaunchPad</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>Pin</th>
+              <th>Connects To</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>UART TX</td>
+              <td>PA10, J4</td>
+              <td>ESP32 GPIO3</td>
+            </tr>
+            <tr>
+              <td>UART RX</td>
+              <td>PA11, J4</td>
+              <td>ESP32 GPIO1</td>
+            </tr>
+            <tr>
+              <td>LED strip data</td>
+              <td>PA27</td>
+              <td>SK6812 DIN, white wire</td>
+            </tr>
+            <tr>
+              <td>Button input</td>
+              <td>PA13</td>
+              <td>Button switch pin</td>
+            </tr>
+            <tr>
+              <td>3.3V</td>
+              <td>Header pin 1</td>
+              <td>Button switch pin 2</td>
+            </tr>
+            <tr>
+              <td>5V</td>
+              <td>Header pin 21</td>
+              <td>Button LED+, LED strip VDD</td>
+            </tr>
+            <tr>
+              <td>GND</td>
+              <td>Header pin 22</td>
+              <td>Button LED−, LED strip GND, ESP32 GND</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Important:</strong> J21 and J22 jumpers must be in the <strong>BP position</strong>.</p>
+
+        <h3>ESP32 DevKit</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>Pin</th>
+              <th>Connects To</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>UART RX</td>
+              <td>GPIO3</td>
+              <td>MSPM0 PA10</td>
+            </tr>
+            <tr>
+              <td>UART TX</td>
+              <td>GPIO1</td>
+              <td>MSPM0 PA11</td>
+            </tr>
+            <tr>
+              <td>I2S BCLK</td>
+              <td>GPIO26</td>
+              <td>MAX98357A BCLK</td>
+            </tr>
+            <tr>
+              <td>I2S LRCLK</td>
+              <td>GPIO25</td>
+              <td>MAX98357A LRC</td>
+            </tr>
+            <tr>
+              <td>I2S Data</td>
+              <td>GPIO27</td>
+              <td>MAX98357A DIN</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>MAX98357A Amplifier</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Pin</th>
+              <th>Connects To</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vin</td>
+              <td>5V</td>
+            </tr>
+            <tr>
+              <td>GND</td>
+              <td>GND</td>
+            </tr>
+            <tr>
+              <td>SD</td>
+              <td>3.3V, always on, left channel</td>
+            </tr>
+            <tr>
+              <td>GAIN</td>
+              <td>Leave unconnected, 9dB</td>
+            </tr>
+            <tr>
+              <td>OUT+/OUT−</td>
+              <td>Speaker terminals</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="software">
+      <div class="container">
+        <h2>Software</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Project Files</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Target</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>lamp_main.c</code></td>
+                  <td>MSPM0, both lamps</td>
+                </tr>
+                <tr>
+                  <td><code>esp1_test.ino</code></td>
+                  <td>ESP32 Lamp 1</td>
+                </tr>
+                <tr>
+                  <td><code>est2_test.ino</code></td>
+                  <td>ESP32 Lamp 2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Dependencies</h3>
+            <p>
+              The MSPM0 firmware was developed in Code Composer Studio using the MSPM0 SDK 2.x.
+              The ESP32 firmware was developed in Arduino IDE with ESP32 board support and the
+              PubSubClient library.
+            </p>
+
+            <pre><code>const char* WIFI_SSID     = "YOUR_WIFI_NAME";
+const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";</code></pre>
+
+            <p>
+              ESP32 only supports 2.4GHz WiFi. For an iPhone hotspot, enable
+              <strong>Maximize Compatibility</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="protocols">
+      <div class="container">
+        <h2>Communication Protocols</h2>
+
+        <div class="grid-3">
+          <div class="feature">
+            <strong>GPIO Input</strong>
+            <p>Button to MSPM0, active HIGH, pull-down, debounced.</p>
+          </div>
+          <div class="feature">
+            <strong>UART</strong>
+            <p>MSPM0 to ESP32 at 115200 baud, 8N1, using PA10 and PA11.</p>
+          </div>
+          <div class="feature">
+            <strong>I2S</strong>
+            <p>ESP32 to MAX98357A amplifier at 44100 Hz, 16-bit stereo.</p>
+          </div>
+          <div class="feature">
+            <strong>NeoPixel 1-Wire</strong>
+            <p>MSPM0 to SK6812 LED strip using bit-banged data on PA27.</p>
+          </div>
+          <div class="feature">
+            <strong>WiFi + MQTT</strong>
+            <p>ESP32 to ESP32 communication through broker.hivemq.com on port 1883.</p>
+          </div>
+          <div class="feature">
+            <strong>Bidirectional Control</strong>
+            <p>Either lamp can trigger the other lamp over the MQTT link.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flashing">
+      <div class="container">
+        <h2>Flashing Instructions</h2>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>MSPM0</h3>
+            <ol>
+              <li>Open CCS and import the <code>uart_echo_interrupts_standby</code> project example.</li>
+              <li>Replace <code>main.c</code> with the provided file.</li>
+              <li>Verify SysConfig for 115200 baud UART, PA27 output, and PA13 input with pull-down.</li>
+              <li>Build and flash using the onboard XDS110 debugger or an external SWD debugger for the PCB.</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>ESP32</h3>
+            <ol>
+              <li>Disconnect MSPM0 UART wires before flashing because GPIO1 and GPIO3 are used for programming.</li>
+              <li>Open the <code>.ino</code> file in Arduino IDE.</li>
+              <li>Select <strong>ESP32 Dev Module</strong> and the correct COM port.</li>
+              <li>Fill in WiFi credentials.</li>
+              <li>Click Upload.</li>
+              <li>Reconnect UART wires after flashing.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="troubleshooting">
+      <div class="container">
+        <h2>Troubleshooting</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Symptom</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ESP32 won't flash</td>
+              <td>Disconnect LaunchPad wires from GPIO1 and GPIO3 first.</td>
+            </tr>
+            <tr>
+              <td>No MQTT connection</td>
+              <td>Check that WiFi has internet access, use 2.4GHz WiFi, and enable hotspot Maximize Compatibility if using an iPhone.</td>
+            </tr>
+            <tr>
+              <td>LEDs don't light</td>
+              <td>Confirm J21 and J22 are in BP position, PA27 uses PINCM60, and the LED strip receives 5V.</td>
+            </tr>
+            <tr>
+              <td>Button not detected</td>
+              <td>Check PA13 PINCM35, pull-down configuration, and switch wiring to 3.3V.</td>
+            </tr>
+            <tr>
+              <td>No sound</td>
+              <td>Check that MAX98357A SD is tied to 3.3V, Vin receives 5V, and GPIO26, GPIO25, and GPIO27 are connected correctly.</td>
+            </tr>
+            <tr>
+              <td>Only one direction works</td>
+              <td>Each lamp needs its own MSPM0 and ESP32 fully wired.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="container">
+        <div class="card">
+          <h2>Team</h2>
+          <p>
+            Built by Diya Gupta, Devin Von Arx, and Tyler Do for ELEC327.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Friendship Lamps · ELEC327 Project ·
+    <a href="https://github.com/diyagupta2328/FriendshipLamps" target="_blank" rel="noopener">
+      GitHub Repository
+    </a>
+  </footer>
+</body>
+</html>
